@@ -1,1 +1,28 @@
-<p>dealer works!</p>
+<div class="w-100 h-100 d-flex p-2">
+
+  <mat-card class="flex-grow-3">
+    <form [formGroup]="form" (ngSubmit)="search()">
+      <div class="d-flex w-100">
+        <mat-form-field class="flex-grow-1" appearance="outline">
+          <mat-label>Search artists by genre</mat-label>
+          <input matInput placeholder="uk tech house, schranz, ..." formControlName="genre">
+          <!-- <mat-icon matSuffix>search</mat-icon> -->
+        </mat-form-field>
+
+        <div class="d-flex flex-column justify-content-center ml-2">
+          <button mat-raised-button color="primary" [disabled]="form.invalid">
+            <mat-icon>search</mat-icon>
+            Search
+          </button>
+        </div>
+        
+      </div>
+    </form>
+
+    
+  </mat-card>
+  
+  <div class="flex-grow-1 ml-2">
+    <p>playlist-edit</p>
+  </div>
+</div>

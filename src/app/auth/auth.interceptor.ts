@@ -16,11 +16,13 @@ export class AuthInterceptor implements HttpInterceptor {
   ) {}
 
   public intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    const newReq = request.clone();
-    
-    if (this.authSv.isAuth && request.url.startsWith('https://api.spotify.com/')) {
-      newReq.headers.append('Authorization', `Bearer ${this.authSv.token}`);
-    }
+    const newReq = this.authSv.isAuth && request.url.startsWith('https://api.spotify.com/')
+      ? request.clone({
+        setHeaders: {
+          Authorization: `Bearer ${this.authSv.token}`
+        }
+      })
+      : request;
 
     return next.handle(newReq).pipe(
       tap({
