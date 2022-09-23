@@ -15,10 +15,58 @@
             Search
           </button>
         </div>
-        
       </div>
     </form>
 
+    <div class="divider" *ngIf="artists.length > 0"></div>
+
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let artist of artists" (closed)="resetTracks()" (afterExpand)="loadTracks(artist)">
+
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <img class="artist-img mr-2" [src]="artist.images[0]?.url" alt="Artist image">
+            {{ artist.name }}
+          </mat-panel-title>
+          <mat-panel-description>
+            {{ artist.genres | genre }}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="divider"></div>
+
+        <table mat-table [dataSource]="tracks" class="mat-elevation-z8">
+
+          <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef>
+              <mat-checkbox (change)="$event ? toggleAllRows() : null"
+                            [checked]="selection.hasValue() && isAllSelected()"
+                            [indeterminate]="selection.hasValue() && !isAllSelected()">
+              </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <mat-checkbox (click)="$event.stopPropagation()"
+                            (change)="$event ? selection.toggle(row) : null"
+                            [checked]="selection.isSelected(row)">
+              </mat-checkbox>
+            </td>
+          </ng-container>
+        
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          </ng-container>
+        
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+              (click)="selection.toggle(row)">
+          </tr>
+        </table>
+
+        <button class="mt-4" mat-raised-button color="primary">Add to playlist</button>
+
+      </mat-expansion-panel>
+    </mat-accordion>
     
   </mat-card>
   

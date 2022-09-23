@@ -27,6 +27,11 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(newReq).pipe(
       tap({
         error: e => {
+          console.warn(e);
+          if (e.status !== 401) {
+            return;
+          }
+
           console.log('401 detected, signing out...');
           this.authSv.signOut();
         }

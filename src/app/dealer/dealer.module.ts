@@ -7,11 +7,17 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatTableModule } from '@angular/material/table';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ReactiveFormsModule } from '@angular/forms';
+import { GenrePipe } from './genre.pipe';
 
 @NgModule({
   declarations: [
-    DealerComponent
+    DealerComponent,
+    GenrePipe
   ],
   imports: [
     CommonModule,
@@ -21,7 +27,11 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatButtonModule,
     MatIconModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatExpansionModule,
+    MatDividerModule,
+    MatTableModule,
+    MatCheckboxModule
   ]
 })
 export class DealerModule { }
