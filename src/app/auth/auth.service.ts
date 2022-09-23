@@ -56,7 +56,7 @@ export class AuthService {
     const state = '1234567890abcdf'; // generateRandomString(16);
 
     // localStorage.setItem(stateKey, state);
-    const scope = 'user-read-private user-read-email';
+    const scope = 'user-read-private user-read-email playlist-modify-public playlist-modify-private';
 
     let url = 'https://accounts.spotify.com/authorize';
     url += '?response_type=token';

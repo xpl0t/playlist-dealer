@@ -1,10 +1,11 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Artist } from '../spotify-api/models/artist.model';
 import { Track } from '../spotify-api/models/track.model';
 import { SpotifyApiService } from '../spotify-api/spotify-api.service';
+import { PlaylistBrowserComponent } from './playlist-browser/playlist-browser.component';
 
 @Component({
   selector: 'app-dealer',
@@ -18,12 +19,15 @@ export class DealerComponent implements OnInit {
   public artists: Artist[] = [];
   public tracks: Track[] = [];
 
-  displayedColumns: string[] = [ 'select', 'name' ];
-  selection = new SelectionModel<Track>(true, []);
+  public displayedColumns: string[] = [ 'select', 'name' ];
+  public selection = new SelectionModel<Track>(true, []);
 
   public form = new FormGroup({
     genre: new FormControl(null, Validators.required)
   });
+
+  @ViewChild(PlaylistBrowserComponent, { static: true })
+  private playlistBrowser: PlaylistBrowserComponent;
 
   constructor(
     private spotifyApi: SpotifyApiService
@@ -84,6 +88,15 @@ export class DealerComponent implements OnInit {
     }
 
     this.selection.select(...this.tracks);
+  }
+
+  public addTracks(): void {
+    if (this.selection.isEmpty()) {
+      console.error('No selection');
+      return;
+    }
+
+    this.playlistBrowser.addTracks(this.selection.selected.map(t => t.id));
   }
 
 }

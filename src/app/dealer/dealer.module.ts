@@ -11,13 +11,17 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatListModule } from '@angular/material/list';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GenrePipe } from './genre.pipe';
+import { PlaylistBrowserComponent } from './playlist-browser/playlist-browser.component';
 
 @NgModule({
   declarations: [
     DealerComponent,
-    GenrePipe
+    GenrePipe,
+    PlaylistBrowserComponent
   ],
   imports: [
     CommonModule,
@@ -31,7 +35,9 @@ import { GenrePipe } from './genre.pipe';
     MatExpansionModule,
     MatDividerModule,
     MatTableModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatListModule,
+    ScrollingModule
   ]
 })
 export class DealerModule { }

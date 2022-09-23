@@ -8,3 +8,22 @@ body {
   font-family: Roboto,
   "Helvetica Neue", sans-serif;
 }
+
+.divider {
+  border-bottom: 1px solid #0000001a;
+  width: 100%;
+  padding-top: 16px;
+  margin-bottom: 16px;
+}
+
+.abs-full-size {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.position-relative {
+  position: relative !important;
+}
