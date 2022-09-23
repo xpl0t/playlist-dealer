@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ToolbarComponent implements OnInit {
 
-  constructor() { }
+  public get isAuth$(): Observable<boolean> {
+    return this.authSv.isAuth$;
+  }
 
-  ngOnInit(): void {
+  public constructor(
+    private authSv: AuthService
+  ) { }
+
+  public ngOnInit(): void {
+  }
+
+  public signOut(): void {
+    this.authSv.signOut();
   }
 
 }

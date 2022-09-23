@@ -1,10 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  title = 'playlist-dealer';
+export class AppComponent implements OnInit {
+
+  public constructor(
+    private authSv: AuthService
+  ) {}
+
+  public ngOnInit(): void {
+    this.authSv.init();
+  }
+
 }
