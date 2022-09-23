@@ -1,4 +1,9 @@
-@use 'flex';
+@import 'bootstrap/scss/bootstrap-grid.scss';
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+body {
+  margin: 0;
+  font-family: Roboto,
+  "Helvetica Neue", sans-serif;
+}
