@@ -1,5 +1,5 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Artist } from '../spotify-api/models/artist.model';
@@ -12,7 +12,7 @@ import { PlaylistBrowserComponent } from './playlist-browser/playlist-browser.co
   templateUrl: './dealer.component.html',
   styleUrls: ['./dealer.component.scss']
 })
-export class DealerComponent implements OnInit {
+export class DealerComponent implements OnDestroy {
 
   private searchSub: Subscription;
   private tracksSub: Subscription;
@@ -33,7 +33,9 @@ export class DealerComponent implements OnInit {
     private spotifyApi: SpotifyApiService
   ) { }
 
-  ngOnInit(): void {
+  public ngOnDestroy(): void {
+    this.tracksSub?.unsubscribe();
+    this.searchSub?.unsubscribe();
   }
 
   public search() {

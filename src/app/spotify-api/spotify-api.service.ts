@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { Artist } from './models/artist.model';
 import { Playlist } from './models/playlist.model';
 import { SearchResult } from './models/search.model';
 import { Track } from './models/track.model';

@@ -1,13 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-toolbar',
-  templateUrl: './toolbar.component.html',
-  styleUrls: ['./toolbar.component.scss']
+  templateUrl: './toolbar.component.html'
 })
-export class ToolbarComponent implements OnInit {
+export class ToolbarComponent {
 
   public get isAuth$(): Observable<boolean> {
     return this.authSv.isAuth$;
@@ -16,9 +15,6 @@ export class ToolbarComponent implements OnInit {
   public constructor(
     private authSv: AuthService
   ) { }
-
-  public ngOnInit(): void {
-  }
 
   public signOut(): void {
     this.authSv.signOut();
