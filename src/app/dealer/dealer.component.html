@@ -29,7 +29,7 @@
               {{ artist.name }}
             </mat-panel-title>
             <mat-panel-description>
-              {{ artist.genres | genre }}
+              {{ artist.genres | join:", " }}
             </mat-panel-description>
           </mat-expansion-panel-header>
 

@@ -14,13 +14,13 @@ import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
 import { DealerRoutingModule } from './dealer-routing.module';
 import { DealerComponent } from './dealer.component';
-import { GenrePipe } from './genre.pipe';
+import { JoinPipe } from './join.pipe';
 import { PlaylistBrowserComponent } from './playlist-browser/playlist-browser.component';
 
 @NgModule({
   declarations: [
     DealerComponent,
-    GenrePipe,
+    JoinPipe,
     PlaylistBrowserComponent
   ],
   imports: [
