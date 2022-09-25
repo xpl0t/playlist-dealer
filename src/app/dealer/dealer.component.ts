@@ -42,7 +42,7 @@ export class DealerComponent implements OnInit {
     }
 
     const { genre } = this.form.value;
-    this.searchSub = this.spotifyApi.search(`genre="${genre}"`, 'artist').subscribe({
+    this.searchSub = this.spotifyApi.search(`genre:"${genre}"`, 'artist').subscribe({
       next: res => {
         console.log('Got artists', res);
         this.artists = res.artists.items;
