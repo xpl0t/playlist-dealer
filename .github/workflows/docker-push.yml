@@ -1,0 +1,31 @@
+name: Docker Push Image
+
+on:
+  release:
+    types: [published]
+    
+env:
+  DOCKER_ID: xpl0t
+  IMAGE_NAME: playlist-dealer
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Build the Docker image
+      run: docker build -t $DOCKER_ID/$IMAGE_NAME:$(jq -r .version package.json) $DOCKER_ID/$IMAGE_NAME:latest .
+      
+    - name: Login to Dockerhub
+      run: docker login -u $DOCKER_ID -p $DOCKER_PW
+      env:
+          DOCKER_PW: ${{secrets.docker_pw}}
+    
+    - name: Push the image to Dockerhub
+      run: |
+        docker push $DOCKER_ID/$IMAGE_NAME:$(jq -r .version package.json)
+        docker push $DOCKER_ID/$IMAGE_NAME:latest
