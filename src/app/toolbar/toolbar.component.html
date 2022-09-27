@@ -1,6 +1,9 @@
 <mat-toolbar color="primary">
   <button mat-button routerLink="/">Playlist Dealer</button>
   <span class="flex-grow-1"></span>
+  <button mat-icon-button aria-label="Navigate to github button" (click)="navigateToRepo()">
+    <mat-icon svgIcon="github"></mat-icon>
+  </button>
   <button mat-icon-button aria-label="Sign out button" (click)="signOut()" *ngIf="isAuth$ | async">
     <mat-icon>logout</mat-icon>
   </button>
