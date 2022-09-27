@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 import { Playlist } from 'src/app/spotify-api/models/playlist.model';
 import { SpotifyApiService } from 'src/app/spotify-api/spotify-api.service';
@@ -24,7 +25,8 @@ export class PlaylistBrowserComponent implements OnInit, OnDestroy {
   public playlists: Playlist[] = [];
 
   public constructor(
-    private spotifyApi: SpotifyApiService
+    private spotifyApi: SpotifyApiService,
+    private snackbar: MatSnackBar
   ) { }
 
   public ngOnInit(): void {
@@ -42,7 +44,10 @@ export class PlaylistBrowserComponent implements OnInit, OnDestroy {
         console.log('Got current user playlists', p);
         this.playlists = p;
       },
-      error: e => console.error(e)
+      error: e => {
+        console.error('Failed to load user playlists', e);
+        this.snackbar.open('Could not load playlists :(', null, { duration: 5000 });
+      }
     })
   }
 
@@ -56,7 +61,10 @@ export class PlaylistBrowserComponent implements OnInit, OnDestroy {
         this.getPlaylists();
         this.form.reset();
       },
-      error: e => console.error('Create playlist failed', e)
+      error: e => {
+        console.error('Create playlist failed', e);
+        this.snackbar.open('Could not create playlist :(', null, { duration: 5000 });
+      }
     });
   }
 
@@ -80,13 +88,17 @@ export class PlaylistBrowserComponent implements OnInit, OnDestroy {
         console.log('Got playlist tracks', t);
         this.tracks = t;
       },
-      error: e => console.error('Could not get playlist tracks', e)
+      error: e => {
+        console.error('Could not get playlist tracks', e);
+        this.snackbar.open('Could not load tracks of playlist :(', null, { duration: 5000 });
+      }
     });
   }
 
   public addTracks(ids: string[]): void {
     if (this.selection == null) {
       console.error('No playlist selected');
+      this.snackbar.open('Please select the target playlist first', null, { duration: 5000 });
       return;
     }
 
@@ -95,8 +107,12 @@ export class PlaylistBrowserComponent implements OnInit, OnDestroy {
       next: () => {
         console.log('Added tracks');
         this.getPlaylistTracks(this.selection.id);
+        this.snackbar.open('Added tracks successfully', null, { duration: 3000 });
       },
-      error: e => console.error('Could not add tracks', e)
+      error: e => {
+        console.error('Could not add tracks', e);
+        this.snackbar.open('Could not add tracks to playlist :(', null, { duration: 5000 });
+      }
     });
   }
 

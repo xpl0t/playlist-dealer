@@ -1,6 +1,7 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 import { Artist } from '../spotify-api/models/artist.model';
 import { Track } from '../spotify-api/models/track.model';
@@ -30,7 +31,8 @@ export class DealerComponent implements OnDestroy {
   private playlistBrowser: PlaylistBrowserComponent;
 
   constructor(
-    private spotifyApi: SpotifyApiService
+    private spotifyApi: SpotifyApiService,
+    private snackbar: MatSnackBar
   ) { }
 
   public ngOnDestroy(): void {
@@ -51,6 +53,7 @@ export class DealerComponent implements OnDestroy {
       },
       error: e => {
         console.error('Search artists failed', e);
+        this.snackbar.open('Genre search failed :(', null, { duration: 5000 });
       }
     })
   }
@@ -73,6 +76,7 @@ export class DealerComponent implements OnDestroy {
       },
       error: e => {
         console.error('Get tracks failed', e);
+        this.snackbar.open('Get track for selected artist failed :(', null, { duration: 5000 });
       }
     })
   }
@@ -93,11 +97,6 @@ export class DealerComponent implements OnDestroy {
   }
 
   public addTracks(): void {
-    if (this.selection.isEmpty()) {
-      console.error('No selection');
-      return;
-    }
-
     this.playlistBrowser.addTracks(this.selection.selected.map(t => t.id));
   }
 

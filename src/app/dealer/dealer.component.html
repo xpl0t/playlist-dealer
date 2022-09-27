@@ -63,7 +63,7 @@
             </tr>
           </table>
 
-          <button class="mt-4" mat-raised-button color="primary" (click)="addTracks()">Add to playlist</button>
+          <button class="mt-4" mat-raised-button color="primary" (click)="addTracks()" [disabled]="selection.isEmpty()">Add to playlist</button>
 
         </mat-expansion-panel>
       </mat-accordion>
