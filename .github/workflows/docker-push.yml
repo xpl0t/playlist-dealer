@@ -3,6 +3,7 @@ name: Docker Push Image
 on:
   release:
     types: [published]
+  workflow_dispatch:
     
 env:
   DOCKER_ID: xpl0t
